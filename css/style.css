@@ -30,6 +30,15 @@ a:hover {
   text-decoration: underline;
 }
 
+h2 {
+  font-size: 5rem;
+}
+
+.option {
+  align-items: center;
+  justify-content: center;
+}
+
 /* Utils */
 .flex {
   display: flex;
