@@ -16,7 +16,7 @@ body {
   height: 100vh;
 
   color: var(--primary-color);
-  font-family: 'Inter', monospace;
+  font-family: 'Poppins', sans-serif;
 
   background-color: var(--bg-color);
 }
@@ -28,10 +28,6 @@ a {
 
 a:hover {
   text-decoration: underline;
-}
-
-h2 {
-  font-size: 5rem;
 }
 
 .option {
@@ -47,64 +43,55 @@ h2 {
   display: grid;
 }
 
-.btn-default {
-  width: 100%;
-  padding: 1rem 0;
-
-  color: var(--primary-color);
-  font-size: 1rem;
-  font-weight: 600;
-
-  background-color: transparent;
-  border-radius: .5rem;
-  border: .15rem solid var(--primary-color);
-
-  transition: all 100ms ease-in;
-}
-.btn-default:hover {
-  color: var(--bg-color);
-  background-color: var(--primary-color);
-}
-.btn-default:active {
-  color: var(--bg-color);
-  background-color: var(--primary-color);
-  transform: translateY(.2rem);
-}
-
-/* Menu */
-#menu.disable {
-  display: none;
-}
-#menu {
-  row-gap: 1.5rem;
-  justify-items: center;
-}
-
-#menu .title {
-  font-size: clamp(2.5rem, 8vw, 5rem);
-}
-
-#menu .social {
-  align-items: center;
-  column-gap: 1rem;
-}
-
-/* Game */
-#game.disable {
-  display: none;
-}
+/* Layout */
 #game {
   row-gap: 4rem;
   justify-items: center;
 }
 
+.header {
+  row-gap: 1.5rem;
+  justify-items: center;
+}
+
+.title {
+  color: white;
+  font-size: 2rem;
+  font-weight: 500;
+}
+.subtitle {
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.scoreboard {
+  align-items: center;
+  column-gap: 1rem;
+}
+
+.score {
+  place-items: center;
+
+  width: 2.5rem;
+  height: 2.5rem;
+
+  color: white;
+  background-color: var(--primary-color);
+  font-size: 1rem;
+
+  border-radius: 0.375rem;
+}
+
 .frame {
   grid-template-columns: repeat(3, 1fr);
+  border: .2rem solid var(--primary-color);
+  border-radius: 1rem;
   border-collapse: collapse;
 }
 .frame > div {
-  width: clamp(6rem, 24vw, 10rem);
-  height: clamp(6rem, 24vw, 10rem);
+  width: clamp(6rem, 22vw, 8rem);
+  height: clamp(6rem, 22vw, 8rem);
   border: .15rem solid var(--primary-color);
 }
 
@@ -137,14 +124,10 @@ h2 {
   border-bottom: transparent;
 }
 
-#game .btn-wrapper {
-  width: 100%;
-  margin-inline: 2rem;
+.link {
+  align-items: center;
+  column-gap: 1rem;
 
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem;
-}
-#game .btn-wrapper > button {
-  width: 16rem;
+  font-size: 1rem;
+  font-weight: 500;
 }

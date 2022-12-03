@@ -7,24 +7,27 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  
   <link rel="shortcut icon" href="./assets/github-icon.svg" type="image/x-icon">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/style.css">
 
   <title>Tic Tac Toe</title>
 </head>
 <body>
-  <div id="menu" class="grid">
-    <h1 class="title">Tic Tac Toe</h1>
-    <button id="play" class="btn-default">Play</button>
+  <main id="game" class="grid">
+    <header class="header grid">
+      <h2 class="title">Tic Tac Toe</h2>
 
-    <a href="https://github.com/wesleydamasceno" class="social flex" target="_blank">
-      <img src="./assets/github-icon.svg">@wesleydamasceno
-    </a>
-  </div>
+      <div class="scoreboard flex">
+        <h3 class="subtitle">Player 1</h3>
+        <span class="score grid">0</span>
 
-  <div id="game" class="disable grid">
+        <h3 class="subtitle">Player 2</h3>
+        <span class="score grid">0</span>
+      </div>
+    </header>
+
     <div class="frame grid">
       <div class="option flex"></div>
       <div class="option flex"></div>
@@ -37,11 +40,13 @@
       <div class="option flex"></div>
     </div>
 
-    <div class="btn-wrapper flex">
-      <button id="back" class="btn-default">Go back</button>
-      <button id="reset" class="btn-default">Restart</button>
-    </div>
-  </div>
+    <footer>
+      <a href="#" class="link flex">
+        <img src="./assets/github-icon.svg" alt="GitHub Icon">
+        @wesleydamasceno
+      </a>
+    </footer>
+  </main>
 
   <script type="module" src="./js/index.js"></script>
 </body>
