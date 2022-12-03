@@ -1,4 +1,4 @@
-import { options, play, goBack, restart } from "./utils.js";
+import { options } from "./utils.js";
 
 function gameBoard() {
   const list = ['', '', '', '', '', '', '', '', ''];
@@ -15,7 +15,7 @@ function gameBoard() {
         list[pos] = 'O';
 
         if (list.every(item => item !== '')) {
-          el.innerHTML = `<h2>O</h2>`
+          el.innerHTML = `<img src="./assets/circle.svg"/>`
           return alert("It's old, try again!");
         }
 
@@ -31,21 +31,21 @@ function gameBoard() {
         ]
 
         if (circleWin.some(elem => elem === 'OOO')) {
-          el.innerHTML = `<h2>O</h2>`
+          el.innerHTML = `<img src="./assets/circle.svg"/>`
 
           list.map((item, pos) => list[pos] = 'Win');
 
           return alert('Player Circle won!'); 
         }
 
-        el.innerHTML = `<h2>O</h2>`
+        el.innerHTML = `<img src="./assets/circle.svg"/>`
         choice = false;
       } 
       else {
         list[pos] = 'X';
 
         if (list.every(item => item !== '')) {
-          el.innerHTML = `<h2>X</h2>`
+          el.innerHTML = `<img src="./assets/x.svg"/>`
           return alert("It's old, try again!");
         }
 
@@ -61,14 +61,14 @@ function gameBoard() {
         ]
 
         if (xWin.some(elem => elem === 'XXX')) {
-          el.innerHTML = `<h2>X</h2>`
+          el.innerHTML = `<img src="./assets/x.svg"/>`
 
           list.map((item, pos) => list[pos] = 'Win');
 
           return alert('Player X won!');
         }
 
-        el.innerHTML = `<h2>X</h2>`
+        el.innerHTML = `<img src="./assets/x.svg"/>`
         choice = true;
       }
     },
@@ -88,8 +88,4 @@ options.forEach((element, pos) => {
   element.addEventListener('click', () => {
     game.play(element, pos);
   })
-})
-
-restart.addEventListener('click', () => {
-  game.reset();
 })
