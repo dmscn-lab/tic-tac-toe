@@ -131,3 +131,63 @@ a:hover {
   font-size: 1rem;
   font-weight: 500;
 }
+
+.status {
+  margin: auto auto;
+  border-radius: .5rem;
+  border: 0;
+  
+  animation: slideIn 3s ease-in-out;
+  overflow: hidden;
+}
+.status::backdrop {
+  animation: dissolve 3s ease-in-out;
+  background: black;
+  opacity: .2;
+}
+.status > div button {
+  padding: 1rem;
+
+  color: var(--purple);
+  font-size: 1rem;
+
+  border: 0;
+  outline: 0;
+}
+
+.status.won > div button {
+  background-color: #73BF7A;  
+}
+.status.lose > div button {
+  background-color: #D96565;
+}
+
+@keyframes dissolve {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: .2;
+  }
+  40% {
+    opacity: .2;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(100vh);
+  }
+  20% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
