@@ -12,12 +12,15 @@ function gameBoard() {
       if (el.innerText.includes('O')) return;
       if (el.innerText.includes('X')) return;
       if (list[pos].includes('Win')) return;
+      if (list[pos].includes('Draw')) return;
       
       if (choice) {
         list[pos] = 'O';
 
         if (list.every(item => item !== '')) {
           el.innerHTML = `<img src="./assets/circle.svg"/>`
+
+          list.map((item, pos) => list[pos] = 'Draw');
 
           status.classList.remove('won');
           status.classList.remove('lose');
