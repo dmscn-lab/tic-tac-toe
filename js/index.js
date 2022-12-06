@@ -1,4 +1,6 @@
-import { options } from "./utils.js";
+import { status, showStatus, closeStatus, options } from './utils.js';
+
+const response = document.getElementById('response');
 
 function gameBoard() {
   const list = ['', '', '', '', '', '', '', '', ''];
@@ -16,7 +18,12 @@ function gameBoard() {
 
         if (list.every(item => item !== '')) {
           el.innerHTML = `<img src="./assets/circle.svg"/>`
-          return alert("It's old, try again!");
+
+          status.classList.remove('won');
+          status.classList.remove('lose');
+
+          response.innerText = 'Draw! Try again';
+          return showStatus();
         }
 
         const circleWin = [
@@ -35,7 +42,11 @@ function gameBoard() {
 
           list.map((item, pos) => list[pos] = 'Win');
 
-          return alert('Player Circle won!'); 
+          status.classList.add('won');
+          status.classList.remove('lose');
+
+          response.innerText = 'Player Circle, Won!';
+          return showStatus();
         }
 
         el.innerHTML = `<img src="./assets/circle.svg"/>`
@@ -65,7 +76,11 @@ function gameBoard() {
 
           list.map((item, pos) => list[pos] = 'Win');
 
-          return alert('Player X won!');
+          status.classList.add('lose');
+          status.classList.remove('won');
+
+          response.innerText = 'Player X, Won!';
+          return showStatus();
         }
 
         el.innerHTML = `<img src="./assets/x.svg"/>`
@@ -89,3 +104,5 @@ options.forEach((element, pos) => {
     game.play(element, pos);
   })
 })
+
+status.addEventListener('animationend', closeStatus);
