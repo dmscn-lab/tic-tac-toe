@@ -11,9 +11,8 @@ function gameBoard() {
   return {
     play: (el, pos) => {
       if (list.length > 9) return;
-      if (el.innerText.includes('O')) return;
-      if (el.innerText.includes('X')) return;
-      
+      if (el.querySelector('img') !== null) return;
+
       if (choice) {
         list[pos] = 'O';
 
