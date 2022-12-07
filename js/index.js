@@ -100,13 +100,6 @@ function gameBoard() {
         el.innerHTML = `<img src="./assets/x.svg"/>`
         choice = true;
       }
-    },
-    reset: () => {
-      list.map((item, pos) => list[pos] = '');
-
-      options.forEach((element) => {
-        element.innerHTML = '';
-      })
     }
   }
 }
