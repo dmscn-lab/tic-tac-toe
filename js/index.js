@@ -1,6 +1,8 @@
 import { status, showStatus, closeStatus, options } from './utils.js';
 
 const response = document.getElementById('response');
+const score = document.querySelectorAll('.score');
+const scoreboard = [0, 0];
 
 function gameBoard() {
   const list = ['', '', '', '', '', '', '', '', ''];
@@ -11,16 +13,13 @@ function gameBoard() {
       if (list.length > 9) return;
       if (el.innerText.includes('O')) return;
       if (el.innerText.includes('X')) return;
-      if (list[pos].includes('Win')) return;
-      if (list[pos].includes('Draw')) return;
       
       if (choice) {
         list[pos] = 'O';
 
         if (list.every(item => item !== '')) {
           el.innerHTML = `<img src="./assets/circle.svg"/>`
-
-          list.map((item, pos) => list[pos] = 'Draw');
+          list.map((item, pos) => list[pos] = '');
 
           status.classList.remove('won');
           status.classList.remove('lose');
@@ -43,10 +42,13 @@ function gameBoard() {
         if (circleWin.some(elem => elem === 'OOO')) {
           el.innerHTML = `<img src="./assets/circle.svg"/>`
 
-          list.map((item, pos) => list[pos] = 'Win');
+          list.map((item, pos) => list[pos] = '');
 
           status.classList.add('won');
           status.classList.remove('lose');
+
+          scoreboard[0]++;
+          score[0].innerText = scoreboard[0];
 
           response.innerText = 'Player Circle, Won!';
           return showStatus();
@@ -60,7 +62,13 @@ function gameBoard() {
 
         if (list.every(item => item !== '')) {
           el.innerHTML = `<img src="./assets/x.svg"/>`
-          return alert("It's old, try again!");
+          list.map((item, pos) => list[pos] = '');
+
+          status.classList.remove('won');
+          status.classList.remove('lose');
+
+          response.innerText = 'Draw! Try again';
+          return showStatus();
         }
 
         const xWin = [
@@ -77,10 +85,13 @@ function gameBoard() {
         if (xWin.some(elem => elem === 'XXX')) {
           el.innerHTML = `<img src="./assets/x.svg"/>`
 
-          list.map((item, pos) => list[pos] = 'Win');
+          list.map((item, pos) => list[pos] = '');
 
           status.classList.add('lose');
           status.classList.remove('won');
+
+          scoreboard[1]++;
+          score[1].innerText = scoreboard[1];
 
           response.innerText = 'Player X, Won!';
           return showStatus();
@@ -108,4 +119,7 @@ options.forEach((element, pos) => {
   })
 })
 
-status.addEventListener('animationend', closeStatus);
+status.addEventListener('animationend', () => {
+  options.forEach(element => element.innerHTML = '');
+  closeStatus();
+});
