@@ -1,103 +1,81 @@
-import { status, showStatus, closeStatus, options } from './utils.js';
+import { status, showModal, closeModal, options } from './utils.js';
 
-const response = document.getElementById('response');
 const score = document.querySelectorAll('.score');
-const scoreboard = [0, 0];
+
+function playerMove(element, player = "X") {
+  player === "O" 
+  ? element.innerHTML = "<img src='./assets/circle.svg'/>"
+  : element.innerHTML = "<img src='./assets/x.svg'/>"
+}
+
+function playerStatus(board, player = "X") {
+  const cases = [
+    [0, 1, 2].every(item => board[item] === player),
+    [3, 4, 5].every(item => board[item] === player),
+    [6, 7, 8].every(item => board[item] === player),
+    [0, 4, 8].every(item => board[item] === player),
+    [2, 4, 6].every(item => board[item] === player),
+    [0, 3, 6].every(item => board[item] === player),
+    [1, 4, 7].every(item => board[item] === player),
+    [2, 5, 8].every(item => board[item] === player)
+  ]
+
+  board.every(item => item !== '') || cases.some(condition => condition)
+  ? cases.some(condition => condition) 
+    ? playerWinner(player)
+    : draw()
+  : '';
+}
+
+function playerWinner(player) {
+  const result = document.getElementById('response');
+  result.innerText = `Player '${player}' Won!`;
+  game.scoreboard(player);
+
+  showModal();
+}
+
+function draw() {
+  const result = document.getElementById('response');
+  result.innerText = 'Draw!';
+  
+  showModal();
+}
 
 function gameBoard() {
-  const list = ['', '', '', '', '', '', '', '', ''];
-  let choice = true;
+  const scoreboard = [0, 0];
+  const board = ['', '', '', '', '', '', '', '', ''];
+  let player = true;
 
   return {
-    play: (el, pos) => {
-      if (list.length > 9) return;
-      if (el.querySelector('img') !== null) return;
+    play: (element, position) => {
+      if (player && board[position] === '') {
+        board[position] = 'O';
 
-      if (choice) {
-        list[pos] = 'O';
+        playerMove(element, "O");
+        playerStatus(board, "O");
 
-        if (list.every(item => item !== '')) {
-          el.innerHTML = `<img src="./assets/circle.svg"/>`
-          list.map((item, pos) => list[pos] = '');
+        player = false;
+      }
 
-          status.classList.remove('won');
-          status.classList.remove('lose');
+      else if (!player && board[position] === '') {
+        board[position] = 'X';
 
-          response.innerText = 'Draw! Try again';
-          return showStatus();
-        }
-
-        const circleWin = [
-          list[0] + list[1] + list[2],
-          list[3] + list[4] + list[5],
-          list[6] + list[7] + list[8],
-          list[0] + list[3] + list[6],
-          list[1] + list[4] + list[7],
-          list[2] + list[5] + list[8],
-          list[0] + list[4] + list[8],
-          list[2] + list[4] + list[6],
-        ]
-
-        if (circleWin.some(elem => elem === 'OOO')) {
-          el.innerHTML = `<img src="./assets/circle.svg"/>`
-
-          list.map((item, pos) => list[pos] = '');
-
-          status.classList.add('won');
-          status.classList.remove('lose');
-
-          scoreboard[0]++;
-          score[0].innerText = scoreboard[0];
-
-          response.innerText = 'Player Circle, Won!';
-          return showStatus();
-        }
-
-        el.innerHTML = `<img src="./assets/circle.svg"/>`
-        choice = false;
-      } 
-      else {
-        list[pos] = 'X';
-
-        if (list.every(item => item !== '')) {
-          el.innerHTML = `<img src="./assets/x.svg"/>`
-          list.map((item, pos) => list[pos] = '');
-
-          status.classList.remove('won');
-          status.classList.remove('lose');
-
-          response.innerText = 'Draw! Try again';
-          return showStatus();
-        }
-
-        const xWin = [
-          list[0] + list[1] + list[2],
-          list[3] + list[4] + list[5],
-          list[6] + list[7] + list[8],
-          list[0] + list[3] + list[6],
-          list[1] + list[4] + list[7],
-          list[2] + list[5] + list[8],
-          list[0] + list[4] + list[8],
-          list[2] + list[4] + list[6],
-        ]
-
-        if (xWin.some(elem => elem === 'XXX')) {
-          el.innerHTML = `<img src="./assets/x.svg"/>`
-
-          list.map((item, pos) => list[pos] = '');
-
-          status.classList.add('lose');
-          status.classList.remove('won');
-
-          scoreboard[1]++;
-          score[1].innerText = scoreboard[1];
-
-          response.innerText = 'Player X, Won!';
-          return showStatus();
-        }
-
-        el.innerHTML = `<img src="./assets/x.svg"/>`
-        choice = true;
+        playerMove(element);
+        playerStatus(board);
+  
+        player = true;
+      }
+    },
+    scoreboard: (player) => {
+      player === 'O' ? scoreboard[0]++ : scoreboard[1]++;
+    
+      score[0].innerText = scoreboard[0];
+      score[1].innerText = scoreboard[1];
+    },
+    reset: () => {
+      for(let i = 0; i < board.length; i++) {
+        board[i] = '';
       }
     }
   }
@@ -113,5 +91,6 @@ options.forEach((element, pos) => {
 
 status.addEventListener('animationend', () => {
   options.forEach(element => element.innerHTML = '');
-  closeStatus();
+  game.reset();
+  closeModal();
 });
