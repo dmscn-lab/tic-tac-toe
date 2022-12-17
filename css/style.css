@@ -155,13 +155,6 @@ a:hover {
   outline: 0;
 }
 
-.status.won > div button {
-  background-color: #73BF7A;  
-}
-.status.lose > div button {
-  background-color: #D96565;
-}
-
 @keyframes dissolve {
   0% {
     opacity: 0;
